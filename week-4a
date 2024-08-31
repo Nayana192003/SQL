@@ -1,0 +1,61 @@
+mysql> create database order5;
+mysql> use order5;
+
+mysql> create table salesman5(salesman_id integer,name varchar(20),city varchar(20),commission integer, primary key(salesman_id));
+mysql> create table customer5(cust_id integer,cust_name varchar(20),city varchar(20),grade integer,salesman_id integer, primary key(cust_id),foreign key(salesman_id) references salesman5(salesman_id) on delete cascade);
+mysql> create table order5(ord_id integer, pur_amt integer,date date,cust_id integer,salesman_id integer, primary key(ord_id),foreign key(cust_id) references customer5(cust_id),foreign key(salesman_id) references salesman5(salesman_id) on delete cascade);
+
+mysql> insert into salesman5 values("2","Abhilash","Banglore","1000");
+mysql> insert into salesman5 values("4","Adithya","Kochi","750");
+mysql> insert into salesman5 values("6","Gaurav","Banglore","1200");
+mysql> insert into salesman5 values("8","Deeepak","Mysore","800");
+mysql> insert into salesman5 values("10","shravan","Banglore","500");
+
+mysql> insert into customer5 values("111","Pradhaan","Banglore","100","2");
+mysql> insert into customer5 values("098","Nayana","Banglore","200","10");
+mysql> insert into customer5 values("126","Rajendra","Kochi","250","4");
+mysql> insert into customer5 values("089","Mannu","Banglore","150","10");
+mysql> insert into customer5 values("095","Priya","Mysore","300","2");
+
+mysql> insert into order5 values("11","10000","23-02-11","111","2");
+mysql> insert into order5 values("19","7000","23-04-19","098","6");
+mysql> insert into order5 values("14","12000","23-08-14","126","4");
+mysql> insert into order5 values ("21","5000","23-01-21","089","10");
+mysql> insert into order5 values ("23","5000","23-11-23","095","8");
+
+mysql> select * from salesman5;
++-------------+----------+----------+------------+
+| salesman_id | name     | city     | commission |
++-------------+----------+----------+------------+
+|           2 | Abhilash | Banglore |       1000 |
+|           4 | Adithya  | Kochi    |        750 |
+|           6 | Gaurav   | Banglore |       1200 |
+|           8 | Deeepak  | Mysore   |        800 |
+|          10 | shravan  | Banglore |        500 |
++-------------+----------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer5;
++---------+-----------+----------+-------+-------------+
+| cust_id | cust_name | city     | grade | salesman_id |
++---------+-----------+----------+-------+-------------+
+|      89 | Mannu     | Banglore |   150 |          10 |
+|      95 | Priya     | Mysore   |   300 |           2 |
+|      98 | Nayana    | Banglore |   200 |          10 |
+|     111 | Pradhaan  | Banglore |   100 |           2 |
+|     126 | Rajendra  | Kochi    |   250 |           4 |
++---------+-----------+----------+-------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from order5;
++--------+---------+------------+---------+-------------+
+| ord_id | pur_amt | date       | cust_id | salesman_id |
++--------+---------+------------+---------+-------------+
+|     11 |   10000 | 2011-02-23 |     111 |           2 |
+|     14 |   12000 | 2014-08-23 |     126 |           4 |
+|     19 |    7000 | 2019-04-23 |      98 |           6 |
+|     21 |    5000 | 2021-01-23 |      89 |          10 |
+|     23 |    5000 | 2023-11-23 |      95 |           8 |
++--------+---------+------------+---------+-------------+
+5 rows in set (0.00 sec)
+
